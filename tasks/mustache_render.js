@@ -1,8 +1,8 @@
 /**
  * grunt-mustache-render
- * https://github.com/5thWall/mustache-render
+ * https://github.com/zippitycars/grunt-mustachio-render
  *
- * Copyright (c) 2013 Andy Arminio
+ * Copyright (c) 2021 Matt Harding
  * Licensed under the MIT license.
  */
 
@@ -18,12 +18,6 @@ module.exports = function gruntTask(grunt) {
   DEFAULT_OPTIONS = {
     directory : ".",
     extension : ".mustache",
-    prefix : "",  // discouraged; use prefix_dir and/or prefix_file
-    prefix_dir : "",
-    prefix_file : "",
-    glob: "",
-    clear_cache : false,
-    escape: true
   };
 
   /**
@@ -32,10 +26,6 @@ module.exports = function gruntTask(grunt) {
    * options   - The Object options used to configure the renderer
    * directory - The String base directory to look for partials (default: ".")
    * extension - The String extension for partials templates (default: ".mustache")
-   * prefix    - The String prefix for partials (default: ""), whose behavior
-   *             depends on whether a partial reference uses a directory or
-   *             not; new configurations should use the prefix_dir and/or
-   *             prefix_file options instead, which are unambiguous
    */
   function GMR(options) {
     this.options = options(DEFAULT_OPTIONS);
@@ -65,7 +55,12 @@ module.exports = function gruntTask(grunt) {
         grunt.log.writeln("Output " + dest + ":");
 
         var template = mustachio.string(body);
-        template.render(dataObj).string().then(function gotOutput(output) {
+
+        var baseDir = this.options.directory;
+        var extension = this.options.extension;
+        var partialResolveFS = new mustachio.partials.FsNoCache(baseDir, [extension]);
+
+        template.render(dataObj, partialResolveFS).string().then(function gotOutput(output) {
           grunt.file.write(dest, output);
           grunt.log.ok(
               (
@@ -222,95 +217,6 @@ module.exports = function gruntTask(grunt) {
   // Internal: Fetch the template body from the local file.
   GMR.prototype._getBodyFromFile = function getBodyFromFile(file) {
     return grunt.file.read(file);
-  };
-
-  // Internal: Delegate to user provided function if present
-  GMR.prototype._getPartial = function getPartial(name) {
-    if(this.options.partial_finder) {
-      return this.options.partial_finder(name);
-    }
-
-    return this._defaultGetPartial(name);
-  };
-
-  // Internal: Retrieve String partial by name.
-  GMR.prototype._defaultGetPartial = function defaultGetPartial(name) {
-    var prefixDir = this.options.prefix_dir;
-    var prefixFile = this.options.prefix_file;
-    var prefixOld = this.options.prefix;
-    var glob = this.options.glob;
-    var baseDir = this.options.directory;
-    var partialFile;
-
-    var dirname = path.dirname(name);
-    var hasDir = dirname && dirname !== '.';
-    var basename = path.basename(name);
-
-    if (glob) {
-        if (prefixDir || prefixFile || prefixOld) {
-            grunt.log.error("Warning: All prefix options are ignored when " +
-                            "using the glob option!");
-        }
-        glob = glob.replace(/\$0/g, name);
-        glob = glob.replace(/\$1/g, dirname);
-        glob = glob.replace(/\$2/g, basename);
-
-        var partials = grunt.file.expand({cwd: baseDir}, glob);
-        if (partials.length === 0) {
-            grunt.log.error("Warning: partial reference " + name.yellow +
-                            " yields the glob pattern " + glob.cyan +
-                            ", which does not match anything in directory " +
-                            baseDir.cyan);
-        } else {
-            if (partials.length > 1) {
-                grunt.log.error("Warning: glob pattern " + glob.cyan +
-                                " for partial reference " + name.yellow +
-                                " yields more than one file. Using the first." +
-                                "Files found: \n" + partials.toString().yellow);
-            }
-            partialFile = path.join(baseDir, partials[0]);
-        }
-    } else {
-        if ((prefixDir || prefixFile) && prefixOld) {
-          throw new Error("old-style prefix option cannot be combined with " +
-                          "the newer prefix_dir or prefix_file options");
-        }
-
-        if (prefixOld) {
-          if (hasDir) {
-            prefixDir = prefixOld;
-            grunt.log.error("Warning: partial reference " + name.yellow +
-                            " w/ prefix " + prefixOld.cyan + " will prepend " +
-                            "prefix to the directory name, not the filename");
-          }
-          else { prefixFile = prefixOld; }
-        }
-
-        if (hasDir) {
-          if (prefixDir && ['.', '/'].indexOf(dirname[0]) !== -1) {
-            throw new Error("cannot use prefix when using a partial " +
-                            "reference that points outside of the base "+
-                            "directory");
-          }
-        } else if (prefixDir) {
-          grunt.log.error("Warning: prefix_dir " + prefixDir.cyan + " has no " +
-                          "effect for partial reference " + name.yellow);
-        }
-        var fileName = path.join(baseDir, hasDir ? prefixDir + dirname : '.',
-                                 prefixFile + basename + this.options.extension);
-        if (!grunt.file.exists(fileName)) {
-            grunt.log.error("Warning: partial reference " + name.yellow +
-                            " yields " + fileName.cyan +
-                            ", which does not exist");
-        } else {
-            partialFile = fileName;
-        }
-    }
-
-    if (partialFile) {
-        return grunt.file.read(partialFile);
-    }
-    return "";
   };
 
   grunt.registerMultiTask('mustache_render', 'Render mustache templates',
