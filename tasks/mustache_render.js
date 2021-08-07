@@ -10,7 +10,6 @@
 
 module.exports = function gruntTask(grunt) {
   var mustachio = require("mustachio"),
-  escapeHtml = mustachio.escape,
   path = require('path'),
   Promise = require('es6-promise').Promise,
   request = require('request'),
@@ -66,11 +65,8 @@ module.exports = function gruntTask(grunt) {
         grunt.log.writeln("Output " + dest + ":");
 
         var template = mustachio.string(body);
-        grunt.log.writeln("2");
         template.render(dataObj).string().then(function gotOutput(output) {
-          grunt.log.writeln("3");
           grunt.file.write(dest, output);
-          grunt.log.writeln("4");
           grunt.log.ok(
               (
                   typeof dataObj === 'object' ?
@@ -364,19 +360,8 @@ module.exports = function gruntTask(grunt) {
 
       var renderer = new GMR(this.options);
 
-      if (renderer.options.escape === true) {
-        mustachio.escape = escapeHtml;
-      } else if (renderer.options.escape === false) {
-        mustachio.escape = function (text) { return text; };
-      } else if (typeof renderer.options.escape === 'function') {
-        mustachio.escape = renderer.options.escape;
-      } else {
-        throw new Error("escape must be true, false, or a function");
-      }
-
       var done = (function (gruntDone) {
         return function (success) {
-          mustachio.escape = escapeHtml;  // do not leak custom escape function
           gruntDone(success);
         };
       }(this.async()));
