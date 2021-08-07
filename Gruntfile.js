@@ -87,136 +87,136 @@ module.exports = function(grunt) {
             dest: 'tmp/hello_js.html'}
          ]
       },
-      partials_directory: {
-        options: {
-          directory: 'test/fixtures/partials/'
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial.mustache',
-           dest: 'tmp/hello_partial.html'}
-        ]
-      },
-      partials_extension: {
-        options: {
-          directory: 'test/fixtures/partials/',
-          extension: '.ms',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial.mustache',
-           dest: 'tmp/hello_partial_extension.html'}
-        ]
-      },
-      partials_full: {
-        options: {
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial_full.mustache',
-           dest: 'tmp/hello_partial_full.html'}
-        ]
-      },
-      partials_prefix: {  // tests backward compatibility w/ 'prefix'
-        options: {
-          directory: 'test/fixtures/partials/',
-          prefix: 'pre_',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial.mustache',
-           dest: 'tmp/hello_partial_prefix.html'}
-        ]
-      },
-      partials_prefix_dir: {  // tests backward compatibility w/ 'prefix'
-        options: {
-          directory: 'test/fixtures/partials/',
-          prefix: 'sub-',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial_dir.mustache',
-           dest: 'tmp/hello_partial_prefix_dir.html'}
-        ]
-      },
-      partials_fprefix: {  // like partials_prefix, but using new options
-        options: {
-          directory: 'test/fixtures/partials/',
-          prefix_file: 'pre_',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial.mustache',
-           dest: 'tmp/hello_partial_fprefix.html'}
-        ]
-      },
-      partials_dprefix: {  // like partials_prefix_dir, but using new options
-        options: {
-          directory: 'test/fixtures/partials/',
-          prefix_dir: 'sub-',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial_dir.mustache',
-           dest: 'tmp/hello_partial_dprefix.html'}
-        ]
-      },
-      partials_dfprefixes: {  // new functionality combining both new prefixes
-        options: {
-          directory: 'test/fixtures/partials/',
-          prefix_dir: 'sub-',
-          prefix_file: 'pre_',
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial_dir.mustache',
-           dest: 'tmp/hello_partial_dfprefixes.html'}
-        ]
-      },
-      partials_function: {
-        options: {
-          partial_finder: function(name) {
-            return "Hello, I'm from a partial function with name: " + name + "\n";
-          },
-          clear_cache: true
-        },
-        files: [
-          {data: 'test/fixtures/objects/hello_world.json',
-           template: 'test/fixtures/templates/hello_partial.mustache',
-           dest: 'tmp/hello_partial_function.html'}
-        ]
-      },
-      partials_glob_df: { // glob expansion partial search (like partials_dfprefixes)
-          options: {
-            directory: 'test/fixtures/partials/',
-            glob: 'sub-$1/pre_$2.mustache',
-            clear_cache: true
-          },
-          files: [
-            {data: 'test/fixtures/objects/hello_world.json',
-             template: 'test/fixtures/templates/hello_partial_dir.mustache',
-             dest: 'tmp/hello_partial_globdf.html'}
-          ]
-      },
-      partials_glob: {
-          options: {
-            directory: 'test/fixtures/partials/',
-            glob: '{sub-$1,.}/$2.!(ms)',
-            clear_cache: true
-          },
-          files: [
-            {data: 'test/fixtures/objects/hello_world.json',
-             template: 'test/fixtures/templates/hello_partial_glob.mustache',
-             dest: 'tmp/hello_partial_glob.html'}
-          ]
-      },
+      // partials_directory: {
+      //   options: {
+      //     directory: 'test/fixtures/partials/'
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial.mustache',
+      //      dest: 'tmp/hello_partial.html'}
+      //   ]
+      // },
+      // partials_extension: {
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     extension: '.ms',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial.mustache',
+      //      dest: 'tmp/hello_partial_extension.html'}
+      //   ]
+      // },
+      // partials_full: {
+      //   options: {
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial_full.mustache',
+      //      dest: 'tmp/hello_partial_full.html'}
+      //   ]
+      // },
+      // partials_prefix: {  // tests backward compatibility w/ 'prefix'
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     prefix: 'pre_',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial.mustache',
+      //      dest: 'tmp/hello_partial_prefix.html'}
+      //   ]
+      // },
+      // partials_prefix_dir: {  // tests backward compatibility w/ 'prefix'
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     prefix: 'sub-',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial_dir.mustache',
+      //      dest: 'tmp/hello_partial_prefix_dir.html'}
+      //   ]
+      // },
+      // partials_fprefix: {  // like partials_prefix, but using new options
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     prefix_file: 'pre_',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial.mustache',
+      //      dest: 'tmp/hello_partial_fprefix.html'}
+      //   ]
+      // },
+      // partials_dprefix: {  // like partials_prefix_dir, but using new options
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     prefix_dir: 'sub-',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial_dir.mustache',
+      //      dest: 'tmp/hello_partial_dprefix.html'}
+      //   ]
+      // },
+      // partials_dfprefixes: {  // new functionality combining both new prefixes
+      //   options: {
+      //     directory: 'test/fixtures/partials/',
+      //     prefix_dir: 'sub-',
+      //     prefix_file: 'pre_',
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial_dir.mustache',
+      //      dest: 'tmp/hello_partial_dfprefixes.html'}
+      //   ]
+      // },
+      // partials_function: {
+      //   options: {
+      //     partial_finder: function(name) {
+      //       return "Hello, I'm from a partial function with name: " + name + "\n";
+      //     },
+      //     clear_cache: true
+      //   },
+      //   files: [
+      //     {data: 'test/fixtures/objects/hello_world.json',
+      //      template: 'test/fixtures/templates/hello_partial.mustache',
+      //      dest: 'tmp/hello_partial_function.html'}
+      //   ]
+      // },
+      // partials_glob_df: { // glob expansion partial search (like partials_dfprefixes)
+      //     options: {
+      //       directory: 'test/fixtures/partials/',
+      //       glob: 'sub-$1/pre_$2.mustache',
+      //       clear_cache: true
+      //     },
+      //     files: [
+      //       {data: 'test/fixtures/objects/hello_world.json',
+      //        template: 'test/fixtures/templates/hello_partial_dir.mustache',
+      //        dest: 'tmp/hello_partial_globdf.html'}
+      //     ]
+      // },
+      // partials_glob: {
+      //     options: {
+      //       directory: 'test/fixtures/partials/',
+      //       glob: '{sub-$1,.}/$2.!(ms)',
+      //       clear_cache: true
+      //     },
+      //     files: [
+      //       {data: 'test/fixtures/objects/hello_world.json',
+      //        template: 'test/fixtures/templates/hello_partial_glob.mustache',
+      //        dest: 'tmp/hello_partial_glob.html'}
+      //     ]
+      // },
       batch_single_template_multiple_json_via_map: {
         options: {
           template: 'test/fixtures/templates/hello_world.html.mustache'
@@ -260,16 +260,16 @@ module.exports = function(grunt) {
            }}
         ]
       },
-      unescaped: {
-        options: {
-          escape: false,
-        },
-        files: [
-          {data: { greeting: "<em>Hello</em>", target: "<strong>world</strong>" },
-           template: 'test/fixtures/templates/hello_world.html.mustache',
-           dest: 'tmp/hello_unescaped.html'}
-        ]
-      },
+      // unescaped: {
+      //   options: {
+      //     escape: false,
+      //   },
+      //   files: [
+      //     {data: { greeting: "<em>Hello</em>", target: "<strong>world</strong>" },
+      //      template: 'test/fixtures/templates/hello_world.html.mustache',
+      //      dest: 'tmp/hello_unescaped.html'}
+      //   ]
+      // },
       escaped: {
         files: [
           {data: { greeting: "Hello & welcome", target: "world :>" },
@@ -277,16 +277,16 @@ module.exports = function(grunt) {
            dest: 'tmp/hello_escaped.html'}
         ]
       },
-      escaped_custom: {
-        options: {
-          escape: function (text) { return '*' + text.toUpperCase() + '*'; }
-        },
-        files: [
-          {data: { greeting: "Hello", target: "world" },
-           template: 'test/fixtures/templates/hello_world.html.mustache',
-           dest: 'tmp/hello_escaped_custom.html'}
-        ]
-      },
+      // escaped_custom: {
+      //   options: {
+      //     escape: function (text) { return '*' + text.toUpperCase() + '*'; }
+      //   },
+      //   files: [
+      //     {data: { greeting: "Hello", target: "world" },
+      //      template: 'test/fixtures/templates/hello_world.html.mustache',
+      //      dest: 'tmp/hello_escaped_custom.html'}
+      //   ]
+      // },
       mustache_unchanged: {  // must be last; tests leakage of mustache.escape
         options: {
           escape: false,

@@ -9,8 +9,8 @@
 'use strict';
 
 module.exports = function gruntTask(grunt) {
-  var mustache = require("mustache"),
-  escapeHtml = mustache.escape,
+  var mustachio = require("mustachio"),
+  escapeHtml = mustachio.escape,
   path = require('path'),
   Promise = require('es6-promise').Promise,
   request = require('request'),
@@ -64,19 +64,25 @@ module.exports = function gruntTask(grunt) {
         var dataObj = results[0], body = results[1];
 
         grunt.log.writeln("Output " + dest + ":");
-        grunt.file.write(dest, mustache.render(body, dataObj,
-                                               this._getPartial.bind(this)));
-        grunt.log.ok(
-          (
-            typeof dataObj === 'object' ?
-            (Object.keys(dataObj).length + "-key object").green :
-            "non-object data".yellow
-          ) +
-          " into " + template.cyan +
-          " from " + (typeof data === 'string' ? data : "JavaScript code").cyan
-        );
 
-        resolve();
+        var template = mustachio.string(body);
+        grunt.log.writeln("2");
+        template.render(dataObj).string().then(function gotOutput(output) {
+          grunt.log.writeln("3");
+          grunt.file.write(dest, output);
+          grunt.log.writeln("4");
+          grunt.log.ok(
+              (
+                  typeof dataObj === 'object' ?
+                      (Object.keys(dataObj).length + "-key object").green :
+                      "non-object data".yellow
+              ) +
+              " into " + template.cyan +
+              " from " + (typeof data === 'string' ? data : "JavaScript code").cyan
+          );
+
+          resolve();
+        });
       }.bind(this)).
 
       catch(function errorFromDataOrBody(exception) {
@@ -358,21 +364,19 @@ module.exports = function gruntTask(grunt) {
 
       var renderer = new GMR(this.options);
 
-      if (renderer.options.clear_cache) { mustache.clearCache(); }
-
       if (renderer.options.escape === true) {
-        mustache.escape = escapeHtml;
+        mustachio.escape = escapeHtml;
       } else if (renderer.options.escape === false) {
-        mustache.escape = function (text) { return text; };
+        mustachio.escape = function (text) { return text; };
       } else if (typeof renderer.options.escape === 'function') {
-        mustache.escape = renderer.options.escape;
+        mustachio.escape = renderer.options.escape;
       } else {
         throw new Error("escape must be true, false, or a function");
       }
 
       var done = (function (gruntDone) {
         return function (success) {
-          mustache.escape = escapeHtml;  // do not leak custom escape function
+          mustachio.escape = escapeHtml;  // do not leak custom escape function
           gruntDone(success);
         };
       }(this.async()));

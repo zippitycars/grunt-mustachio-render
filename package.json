@@ -1,24 +1,24 @@
 {
-  "name": "grunt-mustache-render",
-  "description": "Render mustache templates",
-  "version": "1.9.2",
-  "homepage": "http://projects.the5thwall.net/mustache-render",
+  "name": "grunt-mustachio-render",
+  "description": "Render mustachio templates",
+  "version": "1.0.0",
+  "homepage": "https://github.com/zippitycars/grunt-mustachio-render",
   "author": {
-    "name": "Andy Arminio",
-    "email": "5thWall@gmail.com",
-    "url": "http://blog.the5thwall.net"
+    "name": "Matt Harding",
+    "email": "matt@getzippity.com",
+    "url": "https://getzippity.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/5thWall/mustache-render.git"
+    "url": "git://github.com/zippitycars/grunt-mustachio-render.git"
   },
   "bugs": {
-    "url": "https://github.com/5thWall/mustache-render/issues"
+    "url": "https://github.com/zippitycars/grunt-mustachio-render/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/5thWall/mustache-render/blob/master/LICENSE-MIT"
+      "url": "https://github.com/zippitycars/grunt-mustachio-render/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
@@ -28,10 +28,10 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt": ">=0.4.0"
+    "grunt": ">=0.4.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-nodeunit": "^3.0.0"
   },
   "peerDependencies": {
     "grunt": ">=0.4.0"
@@ -39,11 +39,11 @@
   "dependencies": {
     "es6-promise": "^2.0.0",
     "js-yaml": "^3.2.2",
-    "mustache": "^1.0.0",
+    "mustachio": "^1.0.0",
     "request": "^2.45.0"
   },
   "keywords": [
     "gruntplugin",
-    "mustache"
+    "mustachio"
   ]
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
-var mustache = require('mustache');
+// var mustachio = require('mustachio');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -111,119 +111,119 @@ exports.mustache_render = {
     test.done();
   },
 
-  partials_directory: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial.html');
-    var expected = grunt.file.read('test/expected/hello_partial.html');
-    test.equal(actual, expected, 'should find named partials by directory.');
-
-    test.done();
-  },
-
-  partials_extension: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_extension.html');
-    var expected = grunt.file.read('test/expected/hello_altpartial.html');
-    test.equal(actual, expected, 'should find named partials with different extension.');
-
-    test.done();
-  },
-
-  partials_directory_full: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_full.html');
-    var expected = grunt.file.read('test/expected/hello_partial.html');
-    test.equal(actual, expected, 'should find named partials by full path.');
-
-    test.done();
-  },
-
-  partials_prefix: function(test) {  // 'prefix' using a bare filename
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_prefix.html');
-    var expected = grunt.file.read('test/expected/hello_prefix.html');
-    test.equal(actual, expected, 'should find partials w/ old-style prefix.');
-
-    test.done();
-  },
-
-  partials_prefix_dir: function(test) {  // 'prefix' using a path w/ directory
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_prefix_dir.html');
-    var expected = grunt.file.read('test/expected/hello_prefix_dir.html');
-    test.equal(actual, expected, 'should find partials w/ old-style prefix ' +
-      'using legacy behavior when combined with a subdirectory');
-
-    test.done();
-  },
-
-  partials_fprefix: function(test) {  // replaces partials_prefix
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_fprefix.html');
-    var expected = grunt.file.read('test/expected/hello_prefix.html');
-    test.equal(actual, expected, 'should find partials w/ prefix_file.');
-
-    test.done();
-  },
-
-  partials_dprefix: function(test) {  // replaces partials_prefix_dir
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_dprefix.html');
-    var expected = grunt.file.read('test/expected/hello_prefix_dir.html');
-    test.equal(actual, expected, 'should find partials w/ prefix_dir.');
-
-    test.done();
-  },
-
-  partials_dfprefixes: function(test) {  // combines previous prefix concepts
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_dfprefixes.html');
-    var expected = grunt.file.read('test/expected/hello_dfprefixes.html');
-    test.equal(actual, expected, 'should find partials w/ both ' +
-      'prefix_dir and prefix_file together.');
-
-    test.done();
-  },
-
-  partials_function: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_function.html');
-    var expected = grunt.file.read('test/expected/hello_partial_function.html');
-    test.equal(actual, expected, 'should use given function to find partials');
-
-    test.done();
-  },
-
-  partials_glob_df: function(test) {  // glob expansion partial search (like dfprefixes)
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_globdf.html');
-    var expected = grunt.file.read('test/expected/hello_dfprefixes.html');
-    test.equal(actual, expected, 'should find partials w/ glob ' +
-      '"sub-$1/pre_$2.mustache".');
-
-    test.done();
-  },
-
-  partials_glob: function(test) {  // glob expansion partial search
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_partial_glob.html');
-    var expected = grunt.file.read('test/expected/hello_glob.html');
-    test.equal(actual, expected, 'should find partials w/ glob ' +
-      '"?(+sub-$1)/$2.*".');
-
-    test.done();
-  },
+  // partials_directory: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial.html');
+  //   var expected = grunt.file.read('test/expected/hello_partial.html');
+  //   test.equal(actual, expected, 'should find named partials by directory.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_extension: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_extension.html');
+  //   var expected = grunt.file.read('test/expected/hello_altpartial.html');
+  //   test.equal(actual, expected, 'should find named partials with different extension.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_directory_full: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_full.html');
+  //   var expected = grunt.file.read('test/expected/hello_partial.html');
+  //   test.equal(actual, expected, 'should find named partials by full path.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_prefix: function(test) {  // 'prefix' using a bare filename
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_prefix.html');
+  //   var expected = grunt.file.read('test/expected/hello_prefix.html');
+  //   test.equal(actual, expected, 'should find partials w/ old-style prefix.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_prefix_dir: function(test) {  // 'prefix' using a path w/ directory
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_prefix_dir.html');
+  //   var expected = grunt.file.read('test/expected/hello_prefix_dir.html');
+  //   test.equal(actual, expected, 'should find partials w/ old-style prefix ' +
+  //     'using legacy behavior when combined with a subdirectory');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_fprefix: function(test) {  // replaces partials_prefix
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_fprefix.html');
+  //   var expected = grunt.file.read('test/expected/hello_prefix.html');
+  //   test.equal(actual, expected, 'should find partials w/ prefix_file.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_dprefix: function(test) {  // replaces partials_prefix_dir
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_dprefix.html');
+  //   var expected = grunt.file.read('test/expected/hello_prefix_dir.html');
+  //   test.equal(actual, expected, 'should find partials w/ prefix_dir.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_dfprefixes: function(test) {  // combines previous prefix concepts
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_dfprefixes.html');
+  //   var expected = grunt.file.read('test/expected/hello_dfprefixes.html');
+  //   test.equal(actual, expected, 'should find partials w/ both ' +
+  //     'prefix_dir and prefix_file together.');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_function: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_function.html');
+  //   var expected = grunt.file.read('test/expected/hello_partial_function.html');
+  //   test.equal(actual, expected, 'should use given function to find partials');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_glob_df: function(test) {  // glob expansion partial search (like dfprefixes)
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_globdf.html');
+  //   var expected = grunt.file.read('test/expected/hello_dfprefixes.html');
+  //   test.equal(actual, expected, 'should find partials w/ glob ' +
+  //     '"sub-$1/pre_$2.mustache".');
+  //
+  //   test.done();
+  // },
+  //
+  // partials_glob: function(test) {  // glob expansion partial search
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_partial_glob.html');
+  //   var expected = grunt.file.read('test/expected/hello_glob.html');
+  //   test.equal(actual, expected, 'should find partials w/ glob ' +
+  //     '"?(+sub-$1)/$2.*".');
+  //
+  //   test.done();
+  // },
 
   batch_single_template_multiple_json_via_map: function(test) {
     test.expect(3);
@@ -277,15 +277,15 @@ exports.mustache_render = {
     test.done();
   },
 
-  unescaped: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/hello_unescaped.html');
-    var expected = grunt.file.read('test/expected/hello_unescaped.html');
-    test.equal(actual, expected, 'should allow escaping to be disabled.');
-
-    test.done();
-  },
+  // unescaped: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_unescaped.html');
+  //   var expected = grunt.file.read('test/expected/hello_unescaped.html');
+  //   test.equal(actual, expected, 'should allow escaping to be disabled.');
+  //
+  //   test.done();
+  // },
 
   escaped: function(test) {
     test.expect(1);
@@ -297,23 +297,23 @@ exports.mustache_render = {
     test.done();
   },
 
-  escaped_custom: function(test) {
-    test.expect(1);
+  // escaped_custom: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = grunt.file.read('tmp/hello_escaped_custom.html');
+  //   var expected = grunt.file.read('test/expected/hello_escaped_custom.html');
+  //   test.equal(actual, expected, 'should allow user-defined escape functions.');
+  //
+  //   test.done();
+  // },
 
-    var actual = grunt.file.read('tmp/hello_escaped_custom.html');
-    var expected = grunt.file.read('test/expected/hello_escaped_custom.html');
-    test.equal(actual, expected, 'should allow user-defined escape functions.');
-
-    test.done();
-  },
-
-  mustache_unchanged: function(test) {
-    test.expect(1);
-
-    var actual = mustache.render('{{input}}', {input: 'input &<>'});
-    var expected = 'input &amp;&lt;&gt;';
-    test.equal(actual, expected, 'should not leave mustache escape changed.');
-
-    test.done();
-  },
+  // mustache_unchanged: function(test) {
+  //   test.expect(1);
+  //
+  //   var actual = mustache.render('{{input}}', {input: 'input &<>'});
+  //   var expected = 'input &amp;&lt;&gt;';
+  //   test.equal(actual, expected, 'should not leave mustache escape changed.');
+  //
+  //   test.done();
+  // },
 };
